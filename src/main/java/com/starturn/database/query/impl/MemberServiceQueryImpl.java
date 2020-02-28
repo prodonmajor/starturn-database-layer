@@ -5,12 +5,17 @@
  */
 package com.starturn.database.query.impl;
 
+import com.starturn.database.entities.EsusuGroup;
+import com.starturn.database.entities.EsusuGroupInvites;
 import com.starturn.database.entities.MemberProfile;
 import com.starturn.database.entities.UserToken;
 import com.starturn.database.query.MemberServiceQuery;
 import com.starturn.database.util.HibernateDataAccess;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -154,7 +159,7 @@ public class MemberServiceQueryImpl implements MemberServiceQuery {
 
     @Override
     public UserToken retrieveToken(String token) throws Exception {
-       HibernateDataAccess dao = new HibernateDataAccess();
+        HibernateDataAccess dao = new HibernateDataAccess();
         UserToken profile = new UserToken();
         try {
             dao.startOperation();
@@ -176,5 +181,87 @@ public class MemberServiceQueryImpl implements MemberServiceQuery {
             dao.closeSession();
         }
         return profile;
+    }
+
+    @Override
+    public List<EsusuGroupInvites> viewMemberGroupInvitation(int memberProfileId) throws Exception {
+        HibernateDataAccess dao = new HibernateDataAccess();
+        List<EsusuGroupInvites> invites = new ArrayList<>();
+        try {
+            dao.startOperation();
+            CriteriaBuilder cb = dao.getSession().getCriteriaBuilder();
+            CriteriaQuery<EsusuGroupInvites> cr = cb.createQuery(EsusuGroupInvites.class);
+
+            Root<EsusuGroupInvites> root = cr.from(EsusuGroupInvites.class);
+            Join<EsusuGroupInvites, MemberProfile> member_join = root.join("memberProfile");
+            cr.select(root).where(cb.equal(member_join.get("id"), memberProfileId));
+
+            Query<EsusuGroupInvites> query = dao.getSession().createQuery(cr);
+            invites = query.getResultList();
+
+            dao.commit();
+        } catch (Exception ex) {
+            dao.rollback();
+            logger.error("error thrown - ", ex);
+            throw new Exception(ex);
+        } finally {
+            dao.closeSession();
+        }
+        return invites;
+    }
+
+    @Override
+    public List<EsusuGroupInvites> viewGroupInvitations(int groupId) throws Exception {
+        HibernateDataAccess dao = new HibernateDataAccess();
+        List<EsusuGroupInvites> invites = new ArrayList<>();
+        try {
+            dao.startOperation();
+            CriteriaBuilder cb = dao.getSession().getCriteriaBuilder();
+            CriteriaQuery<EsusuGroupInvites> cr = cb.createQuery(EsusuGroupInvites.class);
+
+            Root<EsusuGroupInvites> root = cr.from(EsusuGroupInvites.class);
+            Join<EsusuGroupInvites, EsusuGroup> group_join = root.join("esusuGroup");
+            cr.select(root).where(cb.equal(group_join.get("id"), groupId));
+
+            Query<EsusuGroupInvites> query = dao.getSession().createQuery(cr);
+            invites = query.getResultList();
+
+            dao.commit();
+        } catch (Exception ex) {
+            dao.rollback();
+            logger.error("error thrown - ", ex);
+            throw new Exception(ex);
+        } finally {
+            dao.closeSession();
+        }
+        return invites;
+    }
+
+    @Override
+    public boolean checkMemberHasGroupInvitation(int groupId, int memberProfileId) throws Exception {
+        HibernateDataAccess dao = new HibernateDataAccess();
+        Long count = 0L;
+        try {
+            dao.startOperation();
+            CriteriaBuilder cb = dao.getSession().getCriteriaBuilder();
+            CriteriaQuery<Long> cr = cb.createQuery(Long.class);
+
+            Root<EsusuGroupInvites> root = cr.from(EsusuGroupInvites.class);
+            Join<EsusuGroupInvites, MemberProfile> member_join = root.join("memberProfile");
+            cr.select(cb.count(root)).where(cb.equal(root.get("id"), groupId),
+                    cb.equal(member_join.get("id"), memberProfileId));
+
+            Query<Long> query = dao.getSession().createQuery(cr);
+            count = query.getSingleResult();
+
+            dao.commit();
+        } catch (Exception ex) {
+            dao.rollback();
+            logger.error("error thrown - ", ex);
+            throw new Exception(ex);
+        } finally {
+            dao.closeSession();
+        }
+        return count > 0;
     }
 }

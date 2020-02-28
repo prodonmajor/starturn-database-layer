@@ -39,6 +39,7 @@ public class EsusuGroup implements java.io.Serializable {
     private Date creationDate;
     private String createdByUsername;
     private Boolean circleCompleted;
+    private BigDecimal monthlyCollectionAmount;
     private Set esusuGroupMemberses = new HashSet(0);
     private Set transactions = new HashSet(0);
     private Set esusuGroupInviteses = new HashSet(0);
@@ -50,7 +51,7 @@ public class EsusuGroup implements java.io.Serializable {
         this.id = id;
     }
 
-    public EsusuGroup(int id, ContributionFrequency contributionFrequency, String name, String description, String code, BigDecimal contributionAmount, Integer numberOfContributors, BigDecimal minAmountLockedInMemberAccount, Date startDate, Date endDate, Date creationDate, String createdByUsername, Boolean circleCompleted, Set esusuGroupMemberses, Set transactions, Set esusuGroupInviteses) {
+    public EsusuGroup(int id, ContributionFrequency contributionFrequency, String name, String description, String code, BigDecimal contributionAmount, Integer numberOfContributors, BigDecimal minAmountLockedInMemberAccount, Date startDate, Date endDate, Date creationDate, String createdByUsername, Boolean circleCompleted,BigDecimal monthlyCollectionAmount, Set esusuGroupMemberses, Set transactions, Set esusuGroupInviteses) {
         this.id = id;
         this.contributionFrequency = contributionFrequency;
         this.name = name;
@@ -64,6 +65,7 @@ public class EsusuGroup implements java.io.Serializable {
         this.creationDate = creationDate;
         this.createdByUsername = createdByUsername;
         this.circleCompleted = circleCompleted;
+        this.monthlyCollectionAmount = monthlyCollectionAmount;
         this.esusuGroupMemberses = esusuGroupMemberses;
         this.transactions = transactions;
         this.esusuGroupInviteses = esusuGroupInviteses;
@@ -201,6 +203,17 @@ public class EsusuGroup implements java.io.Serializable {
     public void setCircleCompleted(Boolean circleCompleted) {
         this.circleCompleted = circleCompleted;
     }
+
+    @Column(name = "monthly_collection_amount", scale = 4)
+    public BigDecimal getMonthlyCollectionAmount() {
+        return monthlyCollectionAmount;
+    }
+
+    public void setMonthlyCollectionAmount(BigDecimal monthlyCollectionAmount) {
+        this.monthlyCollectionAmount = monthlyCollectionAmount;
+    }
+    
+    
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "esusuGroup")
     public Set getEsusuGroupMemberses() {

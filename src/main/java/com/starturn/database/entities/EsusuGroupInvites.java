@@ -2,7 +2,6 @@ package com.starturn.database.entities;
 // Generated 12-Jan-2020 16:59:07 by Hibernate Tools 4.3.1
 
 
-import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,12 +28,6 @@ public class EsusuGroupInvites  implements java.io.Serializable {
      private Long version;
      private EsusuGroup esusuGroup;
      private MemberProfile memberProfile;
-     private String firstName;
-     private String lastName;
-     private String emailAddress;
-     private String phoneNumber;
-     private BigDecimal expectedAmount;
-     private BigDecimal amountPaid;
      private Boolean accepted;
      private Boolean rejected;
      private Date responseDate;
@@ -48,16 +41,10 @@ public class EsusuGroupInvites  implements java.io.Serializable {
     public EsusuGroupInvites(int id) {
         this.id = id;
     }
-    public EsusuGroupInvites(int id, EsusuGroup esusuGroup, MemberProfile memberProfile, String firstName, String lastName, String emailAddress, String phoneNumber, BigDecimal expectedAmount, BigDecimal amountPaid, Boolean accepted, Boolean rejected, Date responseDate, Date invitedDate, String invitedByUsername) {
+    public EsusuGroupInvites(int id, EsusuGroup esusuGroup, MemberProfile memberProfile,Boolean accepted, Boolean rejected, Date responseDate, Date invitedDate, String invitedByUsername) {
        this.id = id;
        this.esusuGroup = esusuGroup;
        this.memberProfile = memberProfile;
-       this.firstName = firstName;
-       this.lastName = lastName;
-       this.emailAddress = emailAddress;
-       this.phoneNumber = phoneNumber;
-       this.expectedAmount = expectedAmount;
-       this.amountPaid = amountPaid;
        this.accepted = accepted;
        this.rejected = rejected;
        this.responseDate = responseDate;
@@ -106,67 +93,6 @@ public class EsusuGroupInvites  implements java.io.Serializable {
     public void setMemberProfile(MemberProfile memberProfile) {
         this.memberProfile = memberProfile;
     }
-
-    
-    @Column(name="first_name", length=50)
-    public String getFirstName() {
-        return this.firstName;
-    }
-    
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    
-    @Column(name="last_name", length=50)
-    public String getLastName() {
-        return this.lastName;
-    }
-    
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    
-    @Column(name="email_address", length=50)
-    public String getEmailAddress() {
-        return this.emailAddress;
-    }
-    
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
-    
-    @Column(name="phone_number", length=50)
-    public String getPhoneNumber() {
-        return this.phoneNumber;
-    }
-    
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    
-    @Column(name="expected_amount", scale=4)
-    public BigDecimal getExpectedAmount() {
-        return this.expectedAmount;
-    }
-    
-    public void setExpectedAmount(BigDecimal expectedAmount) {
-        this.expectedAmount = expectedAmount;
-    }
-
-    
-    @Column(name="amount_paid", scale=4)
-    public BigDecimal getAmountPaid() {
-        return this.amountPaid;
-    }
-    
-    public void setAmountPaid(BigDecimal amountPaid) {
-        this.amountPaid = amountPaid;
-    }
-
     
     @Column(name="accepted")
     public Boolean getAccepted() {
