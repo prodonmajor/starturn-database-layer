@@ -1,5 +1,5 @@
 package com.starturn.database.entities;
-// Generated 12-Jan-2020 16:59:07 by Hibernate Tools 4.3.1
+// Generated 01-Mar-2020 08:29:01 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,25 +24,20 @@ import javax.persistence.Version;
 public class Requirement  implements java.io.Serializable {
 
 
-     private int id;
+     private Integer id;
      private Long version;
      private String requirementName;
      private String requirementDescription;
      private String requirementCode;
      private Boolean memberHasAccess;
      private Boolean adminHasAccess;
-     private Set requirementGroupAccesses = new HashSet(0);
-     private Set userGroupRequirements = new HashSet(0);
+     private Set<RequirementGroupAccess> requirementGroupAccesses = new HashSet<RequirementGroupAccess>(0);
+     private Set<UserGroupRequirement> userGroupRequirements = new HashSet<UserGroupRequirement>(0);
 
     public Requirement() {
     }
 
-	
-    public Requirement(int id) {
-        this.id = id;
-    }
-    public Requirement(int id, String requirementName, String requirementDescription, String requirementCode, Boolean memberHasAccess, Boolean adminHasAccess, Set requirementGroupAccesses, Set userGroupRequirements) {
-       this.id = id;
+    public Requirement(String requirementName, String requirementDescription, String requirementCode, Boolean memberHasAccess, Boolean adminHasAccess, Set<RequirementGroupAccess> requirementGroupAccesses, Set<UserGroupRequirement> userGroupRequirements) {
        this.requirementName = requirementName;
        this.requirementDescription = requirementDescription;
        this.requirementCode = requirementCode;
@@ -50,15 +47,15 @@ public class Requirement  implements java.io.Serializable {
        this.userGroupRequirements = userGroupRequirements;
     }
    
-     @Id 
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -123,20 +120,20 @@ public class Requirement  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="requirement")
-    public Set getRequirementGroupAccesses() {
+    public Set<RequirementGroupAccess> getRequirementGroupAccesses() {
         return this.requirementGroupAccesses;
     }
     
-    public void setRequirementGroupAccesses(Set requirementGroupAccesses) {
+    public void setRequirementGroupAccesses(Set<RequirementGroupAccess> requirementGroupAccesses) {
         this.requirementGroupAccesses = requirementGroupAccesses;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="requirement")
-    public Set getUserGroupRequirements() {
+    public Set<UserGroupRequirement> getUserGroupRequirements() {
         return this.userGroupRequirements;
     }
     
-    public void setUserGroupRequirements(Set userGroupRequirements) {
+    public void setUserGroupRequirements(Set<UserGroupRequirement> userGroupRequirements) {
         this.userGroupRequirements = userGroupRequirements;
     }
 

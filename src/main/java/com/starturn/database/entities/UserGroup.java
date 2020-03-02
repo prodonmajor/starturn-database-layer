@@ -1,5 +1,5 @@
 package com.starturn.database.entities;
-// Generated 12-Jan-2020 16:59:07 by Hibernate Tools 4.3.1
+// Generated 01-Mar-2020 08:29:01 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -30,8 +30,8 @@ public class UserGroup  implements java.io.Serializable {
      private String groupName;
      private Boolean availableToAdmin;
      private Boolean availableToMember;
-     private Set userGroupRequirements = new HashSet(0);
-     private Set memberProfiles = new HashSet(0);
+     private Set<UserGroupRequirement> userGroupRequirements = new HashSet<UserGroupRequirement>(0);
+     private Set<MemberProfile> memberProfiles = new HashSet<MemberProfile>(0);
 
     public UserGroup() {
     }
@@ -40,7 +40,7 @@ public class UserGroup  implements java.io.Serializable {
     public UserGroup(int id) {
         this.id = id;
     }
-    public UserGroup(int id, String groupName, Boolean availableToAdmin, Boolean availableToMember, Set userGroupRequirements, Set memberProfiles) {
+    public UserGroup(int id, String groupName, Boolean availableToAdmin, Boolean availableToMember, Set<UserGroupRequirement> userGroupRequirements, Set<MemberProfile> memberProfiles) {
        this.id = id;
        this.groupName = groupName;
        this.availableToAdmin = availableToAdmin;
@@ -102,11 +102,11 @@ public class UserGroup  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="userGroup")
-    public Set getUserGroupRequirements() {
+    public Set<UserGroupRequirement> getUserGroupRequirements() {
         return this.userGroupRequirements;
     }
     
-    public void setUserGroupRequirements(Set userGroupRequirements) {
+    public void setUserGroupRequirements(Set<UserGroupRequirement> userGroupRequirements) {
         this.userGroupRequirements = userGroupRequirements;
     }
 
@@ -114,11 +114,11 @@ public class UserGroup  implements java.io.Serializable {
     @JoinTable(name="user_group_members", catalog="starturn", joinColumns = { 
         @JoinColumn(name="user_group_id", nullable=false, updatable=false) }, inverseJoinColumns = { 
         @JoinColumn(name="member_profile_id", nullable=false, updatable=false) })
-    public Set getMemberProfiles() {
+    public Set<MemberProfile> getMemberProfiles() {
         return this.memberProfiles;
     }
     
-    public void setMemberProfiles(Set memberProfiles) {
+    public void setMemberProfiles(Set<MemberProfile> memberProfiles) {
         this.memberProfiles = memberProfiles;
     }
 

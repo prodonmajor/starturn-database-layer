@@ -1,5 +1,5 @@
 package com.starturn.database.entities;
-// Generated 12-Jan-2020 16:59:07 by Hibernate Tools 4.3.1
+// Generated 01-Mar-2020 08:29:01 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -25,7 +25,7 @@ public class RequirementGroup  implements java.io.Serializable {
      private int id;
      private Long version;
      private String groupName;
-     private Set requirementGroupAccesses = new HashSet(0);
+     private Set<RequirementGroupAccess> requirementGroupAccesses = new HashSet<RequirementGroupAccess>(0);
 
     public RequirementGroup() {
     }
@@ -34,7 +34,7 @@ public class RequirementGroup  implements java.io.Serializable {
     public RequirementGroup(int id) {
         this.id = id;
     }
-    public RequirementGroup(int id, String groupName, Set requirementGroupAccesses) {
+    public RequirementGroup(int id, String groupName, Set<RequirementGroupAccess> requirementGroupAccesses) {
        this.id = id;
        this.groupName = groupName;
        this.requirementGroupAccesses = requirementGroupAccesses;
@@ -73,11 +73,11 @@ public class RequirementGroup  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="requirementGroup")
-    public Set getRequirementGroupAccesses() {
+    public Set<RequirementGroupAccess> getRequirementGroupAccesses() {
         return this.requirementGroupAccesses;
     }
     
-    public void setRequirementGroupAccesses(Set requirementGroupAccesses) {
+    public void setRequirementGroupAccesses(Set<RequirementGroupAccess> requirementGroupAccesses) {
         this.requirementGroupAccesses = requirementGroupAccesses;
     }
 

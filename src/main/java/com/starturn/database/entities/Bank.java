@@ -1,5 +1,5 @@
 package com.starturn.database.entities;
-// Generated 12-Jan-2020 16:59:07 by Hibernate Tools 4.3.1
+// Generated 01-Mar-2020 08:29:01 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -26,7 +26,7 @@ public class Bank  implements java.io.Serializable {
      private Long version;
      private String name;
      private String sortCode;
-     private Set memberProfiles = new HashSet(0);
+     private Set<MemberProfile> memberProfiles = new HashSet<MemberProfile>(0);
 
     public Bank() {
     }
@@ -35,7 +35,7 @@ public class Bank  implements java.io.Serializable {
     public Bank(int id) {
         this.id = id;
     }
-    public Bank(int id, String name, String sortCode, Set memberProfiles) {
+    public Bank(int id, String name, String sortCode, Set<MemberProfile> memberProfiles) {
        this.id = id;
        this.name = name;
        this.sortCode = sortCode;
@@ -85,11 +85,11 @@ public class Bank  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="bank")
-    public Set getMemberProfiles() {
+    public Set<MemberProfile> getMemberProfiles() {
         return this.memberProfiles;
     }
     
-    public void setMemberProfiles(Set memberProfiles) {
+    public void setMemberProfiles(Set<MemberProfile> memberProfiles) {
         this.memberProfiles = memberProfiles;
     }
 

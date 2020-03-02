@@ -76,4 +76,7 @@ public interface MemberServiceQuery {
     public List<EsusuGroupInvites> viewMemberGroupInvitation(int memberProfileId) throws Exception;
 
     public List<EsusuGroupInvites> viewGroupInvitations(int groupId) throws Exception;
+    public List<EsusuGroupInvites> viewAllAcceptedGroupInvitations(int groupId) throws Exception;
+    public List<EsusuGroupInvites> viewAllRejectedGroupInvitations(int groupId) throws Exception;
+    public List<UserToken> retrieveValidTokens() throws Exception;
 }

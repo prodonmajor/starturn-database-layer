@@ -1,11 +1,13 @@
 package com.starturn.database.entities;
-// Generated 12-Jan-2020 16:59:07 by Hibernate Tools 4.3.1
+// Generated 01-Mar-2020 08:29:01 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,7 +26,7 @@ import javax.persistence.Version;
 public class EsusuGroupInvites  implements java.io.Serializable {
 
 
-     private int id;
+     private Integer id;
      private Long version;
      private EsusuGroup esusuGroup;
      private MemberProfile memberProfile;
@@ -37,12 +39,7 @@ public class EsusuGroupInvites  implements java.io.Serializable {
     public EsusuGroupInvites() {
     }
 
-	
-    public EsusuGroupInvites(int id) {
-        this.id = id;
-    }
-    public EsusuGroupInvites(int id, EsusuGroup esusuGroup, MemberProfile memberProfile,Boolean accepted, Boolean rejected, Date responseDate, Date invitedDate, String invitedByUsername) {
-       this.id = id;
+    public EsusuGroupInvites(EsusuGroup esusuGroup, MemberProfile memberProfile, Boolean accepted, Boolean rejected, Date responseDate, Date invitedDate, String invitedByUsername) {
        this.esusuGroup = esusuGroup;
        this.memberProfile = memberProfile;
        this.accepted = accepted;
@@ -52,15 +49,15 @@ public class EsusuGroupInvites  implements java.io.Serializable {
        this.invitedByUsername = invitedByUsername;
     }
    
-     @Id 
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -93,6 +90,7 @@ public class EsusuGroupInvites  implements java.io.Serializable {
     public void setMemberProfile(MemberProfile memberProfile) {
         this.memberProfile = memberProfile;
     }
+
     
     @Column(name="accepted")
     public Boolean getAccepted() {

@@ -1,5 +1,5 @@
 package com.starturn.database.entities;
-// Generated 12-Jan-2020 16:59:07 by Hibernate Tools 4.3.1
+// Generated 01-Mar-2020 08:29:01 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,35 +24,30 @@ import javax.persistence.Version;
 public class ContributionFrequency  implements java.io.Serializable {
 
 
-     private int id;
+     private Integer id;
      private Long version;
      private String name;
-     private Set targetSavingsPlans = new HashSet(0);
-     private Set esusuGroups = new HashSet(0);
+     private Set<TargetSavingsPlan> targetSavingsPlans = new HashSet<TargetSavingsPlan>(0);
+     private Set<EsusuGroup> esusuGroups = new HashSet<EsusuGroup>(0);
 
     public ContributionFrequency() {
     }
 
-	
-    public ContributionFrequency(int id) {
-        this.id = id;
-    }
-    public ContributionFrequency(int id, String name, Set targetSavingsPlans, Set esusuGroups) {
-       this.id = id;
+    public ContributionFrequency(String name, Set<TargetSavingsPlan> targetSavingsPlans, Set<EsusuGroup> esusuGroups) {
        this.name = name;
        this.targetSavingsPlans = targetSavingsPlans;
        this.esusuGroups = esusuGroups;
     }
    
-     @Id 
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -75,20 +72,20 @@ public class ContributionFrequency  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="contributionFrequency")
-    public Set getTargetSavingsPlans() {
+    public Set<TargetSavingsPlan> getTargetSavingsPlans() {
         return this.targetSavingsPlans;
     }
     
-    public void setTargetSavingsPlans(Set targetSavingsPlans) {
+    public void setTargetSavingsPlans(Set<TargetSavingsPlan> targetSavingsPlans) {
         this.targetSavingsPlans = targetSavingsPlans;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="contributionFrequency")
-    public Set getEsusuGroups() {
+    public Set<EsusuGroup> getEsusuGroups() {
         return this.esusuGroups;
     }
     
-    public void setEsusuGroups(Set esusuGroups) {
+    public void setEsusuGroups(Set<EsusuGroup> esusuGroups) {
         this.esusuGroups = esusuGroups;
     }
 

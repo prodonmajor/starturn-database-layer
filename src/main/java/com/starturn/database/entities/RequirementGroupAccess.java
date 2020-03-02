@@ -1,10 +1,12 @@
 package com.starturn.database.entities;
-// Generated 12-Jan-2020 16:59:07 by Hibernate Tools 4.3.1
+// Generated 01-Mar-2020 08:29:01 by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,7 +23,7 @@ import javax.persistence.Version;
 public class RequirementGroupAccess  implements java.io.Serializable {
 
 
-     private int id;
+     private Integer id;
      private Long version;
      private Requirement requirement;
      private RequirementGroup requirementGroup;
@@ -29,21 +31,20 @@ public class RequirementGroupAccess  implements java.io.Serializable {
     public RequirementGroupAccess() {
     }
 
-    public RequirementGroupAccess(int id, Requirement requirement, RequirementGroup requirementGroup) {
-       this.id = id;
+    public RequirementGroupAccess(Requirement requirement, RequirementGroup requirementGroup) {
        this.requirement = requirement;
        this.requirementGroup = requirementGroup;
     }
    
-     @Id 
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

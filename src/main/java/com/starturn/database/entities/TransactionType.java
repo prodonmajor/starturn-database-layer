@@ -1,5 +1,5 @@
 package com.starturn.database.entities;
-// Generated 12-Jan-2020 16:59:07 by Hibernate Tools 4.3.1
+// Generated 01-Mar-2020 08:29:01 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -27,13 +27,15 @@ public class TransactionType  implements java.io.Serializable {
      private Integer id;
      private Long version;
      private String name;
-     private Set transactions = new HashSet(0);
+     private Set<MemberWalletTransaction> memberWalletTransactions = new HashSet<MemberWalletTransaction>(0);
+     private Set<Transaction> transactions = new HashSet<Transaction>(0);
 
     public TransactionType() {
     }
 
-    public TransactionType(String name, Set transactions) {
+    public TransactionType(String name, Set<MemberWalletTransaction> memberWalletTransactions, Set<Transaction> transactions) {
        this.name = name;
+       this.memberWalletTransactions = memberWalletTransactions;
        this.transactions = transactions;
     }
    
@@ -70,11 +72,20 @@ public class TransactionType  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="transactionType")
-    public Set getTransactions() {
+    public Set<MemberWalletTransaction> getMemberWalletTransactions() {
+        return this.memberWalletTransactions;
+    }
+    
+    public void setMemberWalletTransactions(Set<MemberWalletTransaction> memberWalletTransactions) {
+        this.memberWalletTransactions = memberWalletTransactions;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="transactionType")
+    public Set<Transaction> getTransactions() {
         return this.transactions;
     }
     
-    public void setTransactions(Set transactions) {
+    public void setTransactions(Set<Transaction> transactions) {
         this.transactions = transactions;
     }
 

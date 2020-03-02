@@ -1,5 +1,5 @@
 package com.starturn.database.entities;
-// Generated 12-Jan-2020 16:59:07 by Hibernate Tools 4.3.1
+// Generated 01-Mar-2020 08:29:01 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -9,6 +9,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,7 +30,7 @@ import javax.persistence.Version;
 public class TargetSavings  implements java.io.Serializable {
 
 
-     private int id;
+     private Integer id;
      private Long version;
      private MemberProfile memberProfile;
      private TargetSavingsPlan targetSavingsPlan;
@@ -44,17 +46,12 @@ public class TargetSavings  implements java.io.Serializable {
      private Date withdrawalDate;
      private Boolean lockedSavings;
      private BigDecimal interestRate;
-     private Set transactions = new HashSet(0);
+     private Set<Transaction> transactions = new HashSet<Transaction>(0);
 
     public TargetSavings() {
     }
 
-	
-    public TargetSavings(int id) {
-        this.id = id;
-    }
-    public TargetSavings(int id, MemberProfile memberProfile, TargetSavingsPlan targetSavingsPlan, BigDecimal targetAmount, BigDecimal periodicAmount, Date applicationDate, Date startDate, Date endDate, Boolean savingsWithdrawn, BigDecimal amountWithdrawn, BigDecimal interestAmount, BigDecimal totalAmountWithdrawn, Date withdrawalDate, Boolean lockedSavings, BigDecimal interestRate, Set transactions) {
-       this.id = id;
+    public TargetSavings(MemberProfile memberProfile, TargetSavingsPlan targetSavingsPlan, BigDecimal targetAmount, BigDecimal periodicAmount, Date applicationDate, Date startDate, Date endDate, Boolean savingsWithdrawn, BigDecimal amountWithdrawn, BigDecimal interestAmount, BigDecimal totalAmountWithdrawn, Date withdrawalDate, Boolean lockedSavings, BigDecimal interestRate, Set<Transaction> transactions) {
        this.memberProfile = memberProfile;
        this.targetSavingsPlan = targetSavingsPlan;
        this.targetAmount = targetAmount;
@@ -72,15 +69,15 @@ public class TargetSavings  implements java.io.Serializable {
        this.transactions = transactions;
     }
    
-     @Id 
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -235,11 +232,11 @@ public class TargetSavings  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="targetSavings")
-    public Set getTransactions() {
+    public Set<Transaction> getTransactions() {
         return this.transactions;
     }
     
-    public void setTransactions(Set transactions) {
+    public void setTransactions(Set<Transaction> transactions) {
         this.transactions = transactions;
     }
 

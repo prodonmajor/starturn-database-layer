@@ -1,5 +1,5 @@
 package com.starturn.database.entities;
-// Generated 12-Jan-2020 16:59:07 by Hibernate Tools 4.3.1
+// Generated 01-Mar-2020 08:29:01 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,7 +27,7 @@ import javax.persistence.Version;
 public class TargetSavingsPlan  implements java.io.Serializable {
 
 
-     private int id;
+     private Integer id;
      private Long version;
      private ContributionFrequency contributionFrequency;
      private String name;
@@ -34,17 +36,12 @@ public class TargetSavingsPlan  implements java.io.Serializable {
      private Boolean autoDebitAllowed;
      private Boolean lockedSavings;
      private BigDecimal earlyWithdrawalInterestRate;
-     private Set targetSavingses = new HashSet(0);
+     private Set<TargetSavings> targetSavingses = new HashSet<TargetSavings>(0);
 
     public TargetSavingsPlan() {
     }
 
-	
-    public TargetSavingsPlan(int id) {
-        this.id = id;
-    }
-    public TargetSavingsPlan(int id, ContributionFrequency contributionFrequency, String name, String periodDuration, BigDecimal savingsInterestRate, Boolean autoDebitAllowed, Boolean lockedSavings, BigDecimal earlyWithdrawalInterestRate, Set targetSavingses) {
-       this.id = id;
+    public TargetSavingsPlan(ContributionFrequency contributionFrequency, String name, String periodDuration, BigDecimal savingsInterestRate, Boolean autoDebitAllowed, Boolean lockedSavings, BigDecimal earlyWithdrawalInterestRate, Set<TargetSavings> targetSavingses) {
        this.contributionFrequency = contributionFrequency;
        this.name = name;
        this.periodDuration = periodDuration;
@@ -55,15 +52,15 @@ public class TargetSavingsPlan  implements java.io.Serializable {
        this.targetSavingses = targetSavingses;
     }
    
-     @Id 
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -148,11 +145,11 @@ public class TargetSavingsPlan  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="targetSavingsPlan")
-    public Set getTargetSavingses() {
+    public Set<TargetSavings> getTargetSavingses() {
         return this.targetSavingses;
     }
     
-    public void setTargetSavingses(Set targetSavingses) {
+    public void setTargetSavingses(Set<TargetSavings> targetSavingses) {
         this.targetSavingses = targetSavingses;
     }
 

@@ -11,21 +11,17 @@
   <table-filter match-name="contribution_frequency"/>
   <table-filter match-name="target_savings_plan"/>
   <table-filter match-name="esusu_group_members"/>
-  <table-filter match-name="user_group_members"/>
   <table-filter match-name="requirement"/>
   <table-filter match-name="bank"/>
-  <table-filter match-name="requirement_group_access"/>
   <table-filter match-name="esusu_group_invites"/>
-  <table-filter match-name="user_group"/>
-  <table-filter match-name="user_group_requirement"/>
   <table-filter match-name="user_token"/>
   <table-filter match-name="member_profile"/>
   <table-filter match-name="target_savings"/>
   <table-filter match-name="esusu_group"/>
   <table-filter match-name="gender"/>
-  <table-filter match-name="requirement_group"/>
   <table-filter match-name="transaction"/>
   <table-filter match-name="transaction_type"/>
+  <table-filter match-name="member_wallet_transaction"/>
   
   <table name="bank">
         <primary-key>
@@ -55,13 +51,6 @@
         </primary-key>
     </table>
     
-    <table name="user_group_members">
-        <primary-key>
-            <generator class="assigned"/>
-            <key-column name="id" type="int"/>
-        </primary-key>
-    </table>
-    
     <table name="requirement">
         <primary-key>
             <generator class="assigned"/>
@@ -69,28 +58,7 @@
         </primary-key>
     </table>
     
-    <table name="requirement_group_access">
-        <primary-key>
-            <generator class="assigned"/>
-            <key-column name="id" type="int"/>
-        </primary-key>
-    </table>
-    
     <table name="esusu_group_invites">
-        <primary-key>
-            <generator class="assigned"/>
-            <key-column name="id" type="int"/>
-        </primary-key>
-    </table>
-    
-    <table name="user_group">
-        <primary-key>
-            <generator class="assigned"/>
-            <key-column name="id" type="int"/>
-        </primary-key>
-    </table>
-    
-    <table name="user_group_requirement">
         <primary-key>
             <generator class="assigned"/>
             <key-column name="id" type="int"/>
@@ -140,6 +108,13 @@
     </table>
     
     <table name="transaction_type">
+        <primary-key>
+            <generator class="assigned"/>
+            <key-column name="id" type="int"/>
+        </primary-key>
+    </table>
+    
+    <table name="member_wallet_transaction">
         <primary-key>
             <generator class="assigned"/>
             <key-column name="id" type="int"/>

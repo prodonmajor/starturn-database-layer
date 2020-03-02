@@ -1,5 +1,5 @@
 package com.starturn.database.entities;
-// Generated 12-Jan-2020 16:59:07 by Hibernate Tools 4.3.1
+// Generated 01-Mar-2020 08:29:01 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,7 +27,7 @@ import javax.persistence.Version;
 public class EsusuGroupMembers  implements java.io.Serializable {
 
 
-     private int id;
+     private Integer id;
      private Long version;
      private EsusuGroup esusuGroup;
      private MemberProfile memberProfile;
@@ -41,12 +43,7 @@ public class EsusuGroupMembers  implements java.io.Serializable {
     public EsusuGroupMembers() {
     }
 
-	
-    public EsusuGroupMembers(int id) {
-        this.id = id;
-    }
-    public EsusuGroupMembers(int id, EsusuGroup esusuGroup, MemberProfile memberProfile, String collectionPosition, BigDecimal expectedAmount, BigDecimal amountPaid, Boolean paid, Date paidDate, Date creationDate, Date expectedCollectionDate, String createdByUsername) {
-       this.id = id;
+    public EsusuGroupMembers(EsusuGroup esusuGroup, MemberProfile memberProfile, String collectionPosition, BigDecimal expectedAmount, BigDecimal amountPaid, Boolean paid, Date paidDate, Date creationDate, Date expectedCollectionDate, String createdByUsername) {
        this.esusuGroup = esusuGroup;
        this.memberProfile = memberProfile;
        this.collectionPosition = collectionPosition;
@@ -59,15 +56,15 @@ public class EsusuGroupMembers  implements java.io.Serializable {
        this.createdByUsername = createdByUsername;
     }
    
-     @Id 
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

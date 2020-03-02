@@ -264,4 +264,89 @@ public class MemberServiceQueryImpl implements MemberServiceQuery {
         }
         return count > 0;
     }
+
+    @Override
+    public List<UserToken> retrieveValidTokens() throws Exception {
+        HibernateDataAccess dao = new HibernateDataAccess();
+        List<UserToken> tokens = new ArrayList<>();
+        try {
+            dao.startOperation();
+            CriteriaBuilder cb = dao.getSession().getCriteriaBuilder();
+            CriteriaQuery<UserToken> cr = cb.createQuery(UserToken.class);
+
+            Root<UserToken> root = cr.from(UserToken.class);
+
+            cr.select(root).where(cb.equal(root.get("validated"), false));
+
+            Query<UserToken> query = dao.getSession().createQuery(cr);
+            tokens = query.getResultList();
+
+            dao.commit();
+        } catch (Exception ex) {
+            dao.rollback();
+            logger.error("error thrown - ", ex);
+            throw new Exception(ex);
+        } finally {
+            dao.closeSession();
+        }
+        return tokens;
+    }
+
+    @Override
+    public List<EsusuGroupInvites> viewAllAcceptedGroupInvitations(int groupId) throws Exception {
+        HibernateDataAccess dao = new HibernateDataAccess();
+        List<EsusuGroupInvites> invites = new ArrayList<>();
+        try {
+            dao.startOperation();
+            CriteriaBuilder cb = dao.getSession().getCriteriaBuilder();
+            CriteriaQuery<EsusuGroupInvites> cr = cb.createQuery(EsusuGroupInvites.class);
+
+            Root<EsusuGroupInvites> root = cr.from(EsusuGroupInvites.class);
+            Join<EsusuGroupInvites, EsusuGroup> group_join = root.join("esusuGroup");
+            cr.select(root).where(cb.equal(group_join.get("id"), groupId),
+                    cb.equal(root.get("accepted"), true),
+                    cb.equal(root.get("rejected"), false));
+
+            Query<EsusuGroupInvites> query = dao.getSession().createQuery(cr);
+            invites = query.getResultList();
+
+            dao.commit();
+        } catch (Exception ex) {
+            dao.rollback();
+            logger.error("error thrown - ", ex);
+            throw new Exception(ex);
+        } finally {
+            dao.closeSession();
+        }
+        return invites;
+    }
+
+    @Override
+    public List<EsusuGroupInvites> viewAllRejectedGroupInvitations(int groupId) throws Exception {
+        HibernateDataAccess dao = new HibernateDataAccess();
+        List<EsusuGroupInvites> invites = new ArrayList<>();
+        try {
+            dao.startOperation();
+            CriteriaBuilder cb = dao.getSession().getCriteriaBuilder();
+            CriteriaQuery<EsusuGroupInvites> cr = cb.createQuery(EsusuGroupInvites.class);
+
+            Root<EsusuGroupInvites> root = cr.from(EsusuGroupInvites.class);
+            Join<EsusuGroupInvites, EsusuGroup> group_join = root.join("esusuGroup");
+            cr.select(root).where(cb.equal(group_join.get("id"), groupId),
+                    cb.equal(root.get("accepted"), false),
+                    cb.equal(root.get("rejected"), true));
+
+            Query<EsusuGroupInvites> query = dao.getSession().createQuery(cr);
+            invites = query.getResultList();
+
+            dao.commit();
+        } catch (Exception ex) {
+            dao.rollback();
+            logger.error("error thrown - ", ex);
+            throw new Exception(ex);
+        } finally {
+            dao.closeSession();
+        }
+        return invites;
+    }
 }
